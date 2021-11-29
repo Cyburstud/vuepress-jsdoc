@@ -1,10 +1,25 @@
 module.exports = {
-  extends: ['prettier'],
+  root: true,
   parser: '@typescript-eslint/parser',
-  parserOptions: {
-    project: ['tsconfig.test.json'],
-    sourceType: 'module'
-  },
+  extends: [
+    'prettier',
+    'plugin:@typescript-eslint/recommended',
+  ],
+  /**
+   * REVIEW: Receiving the following "Parsing error: \"parserOptions.project\" has been set for @typescript-eslint/parser.\nThe file does not match your project config: .eslintrc.js.\nThe file must be included in at least one of the projects provided."
+   * 
+   * More than likely this is including a wide globs in the .test.json file. Will need to identify the typescript file extensions to avoid the Parsing Error.
+   */
+  overrides: [
+    {
+      /** Typescript file extensions identified in the override. */
+      files: ['*.ts', '*.tsx'],
+      parserOptions: {
+        project: ['tsconfig.test.json'],
+        sourceType: 'module'
+      }
+    }
+  ],
   plugins: ['prefer-arrow', '@typescript-eslint', 'import', 'jest'],
   rules: {
     'import/order': [

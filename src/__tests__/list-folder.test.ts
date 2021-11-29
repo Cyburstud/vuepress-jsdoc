@@ -86,26 +86,26 @@ describe('test file-structure', () => {
         './src'
       );
 
-      // @ts-ignore
-      expect((await listFolder('./src', false)).paths).toEqual([
+      /**
+       * I'm not sure why these are flagged to ignore....let's see if this could resolve.
+       */
+
+      expect((await listFolder('./src', ['false'])).paths).toEqual([
         { ext: '.js', folder: 'src/', isDir: false, name: 'file1', path: 'src/file1.js' },
         { ext: '.ts', folder: 'src/', isDir: false, name: 'file2', path: 'src/file2.ts' }
       ]);
 
-      // @ts-ignore
-      expect((await listFolder('./src', '')).paths).toEqual([
+      expect((await listFolder('./src', [])).paths).toEqual([
         { ext: '.js', folder: 'src/', isDir: false, name: 'file1', path: 'src/file1.js' },
         { ext: '.ts', folder: 'src/', isDir: false, name: 'file2', path: 'src/file2.ts' }
       ]);
 
-      // @ts-ignore
-      expect((await listFolder('./src', 'hffdskjh')).paths).toEqual([
+      expect((await listFolder('./src', ['hffdskjh'])).paths).toEqual([
         { ext: '.js', folder: 'src/', isDir: false, name: 'file1', path: 'src/file1.js' },
         { ext: '.ts', folder: 'src/', isDir: false, name: 'file2', path: 'src/file2.ts' }
       ]);
 
-      // @ts-ignore
-      expect((await listFolder()).paths).toEqual([]);
+      expect((await listFolder('./src', ['excluded'])).paths).toEqual([]);
     });
   });
 
@@ -125,7 +125,6 @@ describe('test file-structure', () => {
 
       const { paths } = await listFolder('./src', ['']);
 
-      // @ts-ignore
       expect(paths).toEqual([
         { ext: '.js', folder: 'src/', isDir: false, name: 'file1', path: 'src/file1.js' },
         { ext: '.ts', folder: 'src/', isDir: false, name: 'file2', path: 'src/file2.ts' }
@@ -143,7 +142,6 @@ describe('test file-structure', () => {
 
       const { paths } = await listFolder('./src', ['file3']);
 
-      // @ts-ignore
       expect(paths).toEqual([
         { ext: '.js', folder: 'src/', isDir: false, name: 'file1', path: 'src/file1.js' },
         { ext: '.ts', folder: 'src/', isDir: false, name: 'file2', path: 'src/file2.ts' }
@@ -161,10 +159,8 @@ describe('test file-structure', () => {
 
       const { paths, excluded } = await listFolder('./src', ['file1.js']);
 
-      // @ts-ignore
       expect(paths).toEqual([{ ext: '.ts', folder: 'src/', isDir: false, name: 'file2', path: 'src/file2.ts' }]);
 
-      // @ts-ignore
       expect(excluded).toEqual([{ ext: '.js', folder: 'src/', isDir: false, name: 'file1', path: 'src/file1.js' }]);
     });
   });

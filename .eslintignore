@@ -1,4 +1,5 @@
-example/
-node_modules/
-documentation/
-dist/
+example
+node_modules
+documentation
+dist
+tsconfig.test.json
